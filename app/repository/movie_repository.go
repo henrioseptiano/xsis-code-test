@@ -35,6 +35,7 @@ func (ar *AppRepository) GetMovie(id int64) (*model.Movie, error) {
 	return &movie, nil
 }
 func (ar *AppRepository) UpdateMovie(id int64, movie model.Movie) error {
+	movie.UpdatedAt = time.Now()
 	if err := ar.DB.Model(&model.Movie{}).Where("id = ?", id).Updates(&movie).Error; err != nil {
 		log.Println(err.Error())
 		return errors.New("Cannot Perform DB Update")

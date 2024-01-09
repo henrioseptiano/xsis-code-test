@@ -21,8 +21,11 @@ func (ah *AppHandler) CreateMovie(w http.ResponseWriter, r *http.Request) {
 		utils.ErrorJson(w, err, http.StatusNotAcceptable)
 		return
 	}
-
-	utils.WriteJson(w, http.StatusCreated, "Success Created Movie")
+	jsonResponse := utils.JSONResponse{
+		Error:   false,
+		Message: "Success Created Movie",
+	}
+	utils.WriteJson(w, http.StatusCreated, jsonResponse)
 	return
 }
 
@@ -33,7 +36,12 @@ func (ah *AppHandler) ListMovie(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.WriteJson(w, http.StatusAccepted, data)
+	jsonResponse := utils.JSONResponse{
+		Error:   false,
+		Message: "Success Listing Movies",
+		Data:    data,
+	}
+	utils.WriteJson(w, http.StatusAccepted, jsonResponse)
 	return
 }
 
@@ -50,7 +58,12 @@ func (ah *AppHandler) GetMovie(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.WriteJson(w, http.StatusAccepted, data)
+	jsonResponse := utils.JSONResponse{
+		Error:   false,
+		Message: "Success Getting Movie",
+		Data:    data,
+	}
+	utils.WriteJson(w, http.StatusAccepted, jsonResponse)
 	return
 }
 
@@ -73,7 +86,11 @@ func (ah *AppHandler) UpdateMovie(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.WriteJson(w, http.StatusOK, "Movie Successfully Updated")
+	jsonResponse := utils.JSONResponse{
+		Error:   false,
+		Message: "Movie Successfully Updated",
+	}
+	utils.WriteJson(w, http.StatusOK, jsonResponse)
 	return
 }
 
@@ -90,6 +107,10 @@ func (ah *AppHandler) DeleteMovie(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.WriteJson(w, http.StatusOK, "Movie Sucessfully Deleted")
+	jsonResponse := utils.JSONResponse{
+		Error:   false,
+		Message: "Movie Sucessfully Deleted",
+	}
+	utils.WriteJson(w, http.StatusOK, jsonResponse)
 	return
 }

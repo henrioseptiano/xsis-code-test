@@ -24,7 +24,7 @@ func AppRoutes(db *gorm.DB) http.Handler {
 	route.Post("/Movie", implHandler.CreateMovie)
 	route.Get("/Movie", implHandler.ListMovie)
 	route.Get("/Movie/{id}", implHandler.GetMovie)
-	route.Put("/Movie/{id}", implHandler.UpdateMovie)
+	route.Patch("/Movie/{id}", implHandler.UpdateMovie)
 	route.Delete("/Movie/{id}", implHandler.DeleteMovie)
 
 	return route
