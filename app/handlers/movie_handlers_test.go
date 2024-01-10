@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -34,6 +35,50 @@ func TestCreateMovie(t *testing.T) {
 				Description: "Dans 1",
 				Rating:      4,
 				Image:       "fafa.jpg",
+			},
+		},
+		{
+			name:           "empty title",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Movie Title Cannot Be Empty"),
+			input: request.CreateMovie{
+				Title:       "",
+				Description: "Dans 1",
+				Rating:      4,
+				Image:       "fafa.jpg",
+			},
+		},
+		{
+			name:           "empty description",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Movie Description Cannot Be Empty"),
+			input: request.CreateMovie{
+				Title:       "Dans 1",
+				Description: "",
+				Rating:      4,
+				Image:       "fafa.jpg",
+			},
+		},
+		{
+			name:           "rating not valid",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Rating between 0 to 10"),
+			input: request.CreateMovie{
+				Title:       "Dans 1",
+				Description: "Dans 1",
+				Rating:      11,
+				Image:       "fafa.jpg",
+			},
+		},
+		{
+			name:           "image empty",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Image Cannot Be Empty"),
+			input: request.CreateMovie{
+				Title:       "Dans 1",
+				Description: "Dans 1",
+				Rating:      11,
+				Image:       "",
 			},
 		},
 	}
@@ -163,6 +208,58 @@ func TestUpdateMovie(t *testing.T) {
 				Description: "Dans 1",
 				Rating:      4,
 				Image:       "fafa.jpg",
+			},
+			path: "/Movie/{id}",
+			id:   "1",
+		},
+		{
+			name:           "empty title",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Movie Title Cannot Be Empty"),
+			input: request.UpdateMovie{
+				Title:       "",
+				Description: "Dans 1",
+				Rating:      4,
+				Image:       "fafa.jpg",
+			},
+			path: "/Movie/{id}",
+			id:   "1",
+		},
+		{
+			name:           "empty description",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Movie Description Cannot Be Empty"),
+			input: request.UpdateMovie{
+				Title:       "Dans 1",
+				Description: "",
+				Rating:      4,
+				Image:       "fafa.jpg",
+			},
+			path: "/Movie/{id}",
+			id:   "1",
+		},
+		{
+			name:           "rating not valid",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Rating between 0 to 10"),
+			input: request.UpdateMovie{
+				Title:       "Dans 1",
+				Description: "Dans 1",
+				Rating:      11,
+				Image:       "fafa.jpg",
+			},
+			path: "/Movie/{id}",
+			id:   "1",
+		},
+		{
+			name:           "image empty",
+			expectedcode:   http.StatusNotAcceptable,
+			expectedresult: errors.New("Image Cannot Be Empty"),
+			input: request.UpdateMovie{
+				Title:       "Dans 1",
+				Description: "Dans 1",
+				Rating:      4,
+				Image:       "",
 			},
 			path: "/Movie/{id}",
 			id:   "1",

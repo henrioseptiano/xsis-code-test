@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"xsis-code-test/models/model"
 	"xsis-code-test/routes"
 )
 
@@ -45,7 +46,7 @@ func main() {
 	if err != nil {
 		log.Panic("Cannot Connect to DB")
 	}
-	//db.AutoMigrate(model.Movie{})
+	db.AutoMigrate(model.Movie{})
 	srv := routes.AppRoutes(db)
 	log.Println("Listening Application on Port ", os.Getenv("APP_PORT"))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("APP_PORT")), srv); err != nil {

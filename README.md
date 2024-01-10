@@ -22,11 +22,15 @@ Simply run
     make build
 ```
 
-NOTE : make sure to create your own .env file. otherwise it would not work!
+<strong>NOTE : make sure to create your own .env file. otherwise it would not work!.
+example provided</strong>
+
+The database schema table is automatically migrated when you perform the command above,
+no need to create manually.
 
 ### How to run the unit test?
 
-NOTE : Please install make first in order to run makefile command
+<strong>NOTE : Please install make first in order to run makefile command</strong>
 
 Simply run 
 

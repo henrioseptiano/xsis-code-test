@@ -16,12 +16,11 @@ func (au *AppUsecase) CreateMovie(req request.CreateMovie) error {
 		return errors.New("Movie Description Cannot Be Empty")
 	}
 	if req.Image == "" {
-		return errors.New("Image Description Cannot Be Empty")
+		return errors.New("Image Cannot Be Empty")
 	}
 	if req.Rating < 0 || req.Rating > 10 {
 		return errors.New("Rating between 0 to 10")
 	}
-
 	movie := model.Movie{
 		Title:       req.Title,
 		Description: req.Description,
@@ -48,7 +47,7 @@ func (au *AppUsecase) ListMovie() (*[]response.ListMovie, error) {
 	listMovies := make([]response.ListMovie, 0)
 	for _, movie := range *movies {
 		getCreatedAt := movie.CreatedAt.Format("2006-01-02 15:04:05")
-		getUpdatedAt := movie.CreatedAt.Format("2006-01-02 15:04:05")
+		getUpdatedAt := movie.UpdatedAt.Format("2006-01-02 15:04:05")
 		listMovie := response.ListMovie{
 			ID:          movie.ID,
 			Title:       movie.Title,
@@ -71,7 +70,7 @@ func (au *AppUsecase) GetMovie(id int64) (*response.GetMovie, error) {
 	}
 
 	getCreatedAt := movie.CreatedAt.Format("2006-01-02 15:04:05")
-	getUpdatedAt := movie.CreatedAt.Format("2006-01-02 15:04:05")
+	getUpdatedAt := movie.UpdatedAt.Format("2006-01-02 15:04:05")
 
 	resGetMovie := &response.GetMovie{
 		ID:          movie.ID,
@@ -94,12 +93,11 @@ func (au *AppUsecase) UpdateMovie(id int64, req request.UpdateMovie) error {
 		return errors.New("Movie Description Cannot Be Empty")
 	}
 	if req.Image == "" {
-		return errors.New("Image Description Cannot Be Empty")
+		return errors.New("Image Cannot Be Empty")
 	}
 	if req.Rating < 0 || req.Rating > 10 {
 		return errors.New("Rating between 0 to 10")
 	}
-
 	movie, err := au.AppRepository.GetMovie(id)
 	if err != nil {
 		return err

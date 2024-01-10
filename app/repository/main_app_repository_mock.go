@@ -24,7 +24,7 @@ func (arm *AppRepositoryMock) ListMovie() (*[]model.Movie, error) {
 		movie := arguments.Get(0).(*[]model.Movie)
 		return movie, nil
 	}
-	return nil, arguments.Get(1).(error)
+	return arguments.Get(0).(*[]model.Movie), arguments.Get(1).(error)
 }
 
 func (arm *AppRepositoryMock) GetMovie(id int64) (*model.Movie, error) {
@@ -34,7 +34,7 @@ func (arm *AppRepositoryMock) GetMovie(id int64) (*model.Movie, error) {
 		movie := arguments.Get(0).(*model.Movie)
 		return movie, nil
 	}
-	return nil, arguments.Get(1).(error)
+	return arguments.Get(0).(*model.Movie), arguments.Get(1).(error)
 }
 
 func (arm *AppRepositoryMock) UpdateMovie(id int64, movie model.Movie) error {
